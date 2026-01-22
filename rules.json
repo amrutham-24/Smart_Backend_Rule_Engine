@@ -1,0 +1,55 @@
+[{
+  "rule_id": "bank_001",
+  "event": "transaction_created",
+  "conditions": [
+    {
+      "field": "account_balance",
+      "operator": "<",
+      "value": 1000
+    }
+  ],
+  "action": "block_account",
+  "priority": 1
+},
+
+{
+  "rule_id": "event_001",
+  "event": "event_registration",
+  "conditions": [
+    {
+      "field": "seats_available",
+      "operator": "==",
+      "value": 0
+    }
+  ],
+  "action": "move_to_waitlist"
+},
+
+{
+  "rule_id": "att_001",
+  "event": "attendance_updated",
+  "conditions": [
+    {
+      "field": "attendance",
+      "operator": "<",
+      "value": 75
+    }
+  ],
+  "action": "restrict_exam"
+},
+{
+  "rule_id": "fee_001",
+  "event": "fee_deadline_passed",
+  "conditions": [
+    {
+      "field": "fees_paid",
+      "operator": "==",
+      "value": false
+    }
+  ],
+  "action": "block_hall_ticket"
+}
+
+
+]
+
