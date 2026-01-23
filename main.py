@@ -6,6 +6,22 @@ from gemini import generate_rule_from_text
 #from firebase import save_rule, get_all_rules, save_trace
 
 app = FastAPI()
+# TEMP in-memory storage
+# ---------------------------------
+RULES_DB = []
+TRACES_DB = []
+def save_rule(rule):
+    RULES_DB.append(rule)
+
+
+def get_all_rules():
+    return RULES_DB
+
+
+def save_trace(trace):
+    TRACES_DB.append(trace)
+
+#-----------------------------
 class RuleRequest(BaseModel):
     text: str
 
