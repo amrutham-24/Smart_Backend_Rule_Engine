@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 #from engine import evaluate_rules
-#from gemini import generate_rule_from_text
+from gemini import generate_rule_from_text
 #from firebase import save_rule, get_all_rules, save_trace
 
 app = FastAPI()
