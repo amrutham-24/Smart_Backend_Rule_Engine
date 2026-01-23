@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-#from engine import evaluate_rules
+from engine import evaluate_rules
+from action_executor import execute_action
 from gemini import generate_rule_from_text
 #from firebase import save_rule, get_all_rules, save_trace
 
@@ -36,10 +37,26 @@ def evaluate_event(req: EventRequest):
         req.data
     )
 
+    final_outputs = []
+
+    for result in results:
+        output = execute_action(
+            action=result["action"],
+            context=req.data
+        )
+        final_outputs.append(output)
+
+
     save_trace({
         "event": req.event,
         "input": req.data,
-        "result": result
+        "rules_triggered": results,
+        "actions_executed": final_outputs
     })
+    return {
+        "event": req.event,
+        "triggered_rules": results,
+        "actions": final_outputs
+    }
 
-    return result
+    
